@@ -10,7 +10,7 @@ interface AppNameProps {
 function AppName({ appName }: AppNameProps) {
   return (
     <div className="flex flex-row w-full items-center justify-center">
-      <h1 className="font-extrabold text-base sm:text-2xl md:text-4xl lg:text-6xl tracking-widest uppercase">
+      <h1 className="font-extrabold text-base sm:text-2xl md:text-4xl lg:text-6xl tracking-widest">
         <Typewriter
           words={[appName]}
           loop={1}

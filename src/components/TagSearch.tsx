@@ -1,5 +1,4 @@
 "use client";
-import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,9 +49,11 @@ function TagSearch() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="inline-flex gap-2 w-full md:w-48">
-          <Search className="h-4 w-5" />
-          Search
+        <Button
+          type="submit"
+          className="inline-flex gap-2 w-full md:w-48 tracking-wider"
+        >
+          Generate
         </Button>
       </form>
     </Form>
