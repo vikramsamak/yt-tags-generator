@@ -21,8 +21,16 @@ function TagSearch() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { title } = values;
+    const response = await fetch("/api/generatetag", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title }),
+    });
+    console.log(response.json());
   }
 
   function onErrors(errors: FieldErrors<z.infer<typeof formSchema>>) {
