@@ -27,7 +27,7 @@ interface TagsInputProps extends React.HTMLAttributes<HTMLDivElement> {
 
 interface TagsInputContextProps {
   value: string[];
-  onValueChange: (value: any) => void;
+  onValueChange: (value: string[]) => void;
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   activeIndex: number;
@@ -67,7 +67,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           onValueChange([...value, val]);
         }
       },
-      [value]
+      [value,onValueChange,parseMaxItems]
     );
 
     const RemoveValue = React.useCallback(
@@ -76,7 +76,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           onValueChange(value.filter((item) => item !== val));
         }
       },
-      [value]
+      [onValueChange, parseMinItems, value]
     );
 
     const handlePaste = React.useCallback(
@@ -97,7 +97,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
         onValueChange(newValue);
         setInputValue("");
       },
-      [value]
+      [onValueChange, parseMaxItems, value]
     );
 
     const handleSelect = React.useCallback(
@@ -131,7 +131,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
         }
       };
       VerifyDisable();
-    }, [value]);
+    }, [parseMaxItems, parseMinItems, value]);
 
     // ? check: Under build , default option support
     // * support : for the uncontrolled && controlled ui
@@ -225,7 +225,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
             break;
         }
       },
-      [activeIndex, value, inputValue, RemoveValue]
+      [activeIndex, value, dir, inputValue, RemoveValue, selectedValue, isValueSelected, onValueChangeHandler]
     );
 
     const mousePreventDefault = React.useCallback((e: React.MouseEvent) => {
