@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { toast } from "sonner";
 import { useState } from "react";
 import { TagsInput } from "./extension/tags-input";
+import { Copy } from "lucide-react";
 
 const formSchema = z.object({
   title: z.string().min(4, {
@@ -33,19 +34,26 @@ function TagSearch() {
       },
       body: JSON.stringify({ title }),
     });
-    const tags = await response.json();
-    if (tags && tags.length > 0) {
-      setTags(tags);
-      console.log(response.json());
-    }
+    const jsonRes = await response.json();
+    setTags(jsonRes.tags);
   }
 
   function onErrors(errors: FieldErrors<z.infer<typeof formSchema>>) {
     toast.error(errors.title?.message);
   }
 
+  async function copyHandler() {
+    const tagsString = tags.join(", ");
+    try {
+      await navigator.clipboard.writeText(tagsString);
+      toast.success("Tags copied to clipboard!");
+    } catch (error) {
+      console.error("Failed to copy tags: ", error);
+    }
+  }
+
   return (
-    <div className="w-full flex flex-col gap-2 justify-center">
+    <div className="w-full flex flex-col gap-4 justify-center items-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit, onErrors)}
@@ -73,11 +81,23 @@ function TagSearch() {
           </Button>
         </form>
       </Form>
-      <TagsInput
-        className="w-full md:w-full p-6 justify-center"
-        value={tags}
-        onValueChange={setTags}
-      />
+      {tags && tags.length > 0 && (
+        <div className="w-full flex flex-col gap-4 justify-center items-center">
+          <TagsInput
+            className="w-full md:w-1/2 p-6"
+            value={tags}
+            onValueChange={setTags}
+          />
+          <Button
+            type="button"
+            className="inline-flex gap-2 w-full md:w-48 tracking-wider"
+            onClick={copyHandler}
+          >
+            Copy
+            <Copy className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
