@@ -9,6 +9,9 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { TagsInput } from "./extension/tags-input";
 import { Copy } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { ApiResponseHandler } from "@/helpers/ApiResponseHandler";
+import { Skeleton } from "./ui/skeleton";
 
 const formSchema = z.object({
   title: z.string().min(4, {
@@ -25,17 +28,20 @@ function TagSearch() {
     },
   });
 
+  const { isPending, mutate } = useMutation({
+    mutationFn: (title: string) => ApiResponseHandler(title),
+    onSuccess: (data) => {
+      setTags(data);
+    },
+    onError: (error) => {
+      console.error("Error while fetching data:", error.message);
+      toast.error(error.message);
+    },
+  });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { title } = values;
-    const response = await fetch("/api/generatetag", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title }),
-    });
-    const jsonRes = await response.json();
-    setTags(jsonRes.tags);
+    mutate(title);
   }
 
   function onErrors(errors: FieldErrors<z.infer<typeof formSchema>>) {
@@ -63,7 +69,7 @@ function TagSearch() {
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem className="w-full md:w-1/2 p-6">
+              <FormItem className="w-full md:w-1/2">
                 <FormControl className="p-6">
                   <Input
                     placeholder="Enter your next youtube video title to generate tags"
@@ -81,23 +87,30 @@ function TagSearch() {
           </Button>
         </form>
       </Form>
-      {tags && tags.length > 0 && (
-        <div className="w-full flex flex-col gap-4 justify-center items-center">
-          <TagsInput
-            className="w-full md:w-1/2 p-6"
-            value={tags}
-            onValueChange={setTags}
-          />
-          <Button
-            type="button"
-            className="inline-flex gap-2 w-full md:w-48 tracking-wider"
-            onClick={copyHandler}
-          >
-            Copy
-            <Copy className="h-4 w-4" />
-          </Button>
-        </div>
-      )}
+      <div className="w-full flex flex-col gap-4 justify-center items-center">
+        {isPending ? (
+          <Skeleton className="h-48 md:w-1/2" />
+        ) : (
+          tags &&
+          tags.length > 0 && (
+            <>
+              <TagsInput
+                className="w-full md:w-1/2 p-6"
+                value={tags}
+                onValueChange={setTags}
+              />
+              <Button
+                type="button"
+                className="inline-flex gap-2 w-full md:w-48 tracking-wider"
+                onClick={copyHandler}
+              >
+                Copy
+                <Copy className="h-4 w-4" />
+              </Button>
+            </>
+          )
+        )}
+      </div>
     </div>
   );
 }

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ReactQueryProvider from "@/contexts/ReactQueryProvider";
+import "./globals.css";
 
 //TODO: CHANGE THIS FOR SEO.
 
@@ -27,7 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
           <Footer />
           <Toaster position="top-center" />
         </ThemeProvider>
