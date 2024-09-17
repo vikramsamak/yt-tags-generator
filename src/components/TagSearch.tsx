@@ -87,30 +87,28 @@ function TagSearch() {
           </Button>
         </form>
       </Form>
-      <div className="w-full flex flex-col gap-4 justify-center items-center">
-        {isPending ? (
-          <Skeleton className="h-48 md:w-1/2" />
-        ) : (
-          tags &&
-          tags.length > 0 && (
-            <>
-              <TagsInput
-                className="w-full md:w-1/2 p-6"
-                value={tags}
-                onValueChange={setTags}
-              />
-              <Button
-                type="button"
-                className="inline-flex gap-2 w-full md:w-48 tracking-wider"
-                onClick={copyHandler}
-              >
-                Copy
-                <Copy className="h-4 w-4" />
-              </Button>
-            </>
-          )
-        )}
-      </div>
+      {isPending ? (
+        <Skeleton className="h-48 md:w-1/2" />
+      ) : (
+        tags &&
+        tags.length > 0 && (
+          <div className="w-full flex flex-col gap-4 justify-center items-center">
+            <TagsInput
+              className="w-full md:w-1/2 p-6"
+              value={tags}
+              onValueChange={setTags}
+            />
+            <Button
+              type="button"
+              className="inline-flex gap-2 w-full md:w-48 tracking-wider"
+              onClick={copyHandler}
+            >
+              Copy
+              <Copy className="h-4 w-4" />
+            </Button>
+          </div>
+        )
+      )}
     </div>
   );
 }
