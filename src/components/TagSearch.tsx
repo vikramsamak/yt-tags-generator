@@ -63,7 +63,7 @@ function TagSearch() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit, onErrors)}
-          className="flex flex-col gap-2 w-full items-center justify-center"
+          className="flex flex-col gap-4 w-full items-center justify-center"
         >
           <FormField
             control={form.control}
