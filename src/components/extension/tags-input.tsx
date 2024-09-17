@@ -39,7 +39,6 @@ const TagInputContext = React.createContext<TagsInputContextProps | null>(null);
 export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
   (
     {
-      children,
       value,
       onValueChange,
       placeholder,
@@ -67,7 +66,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           onValueChange([...value, val]);
         }
       },
-      [value,onValueChange,parseMaxItems]
+      [value, onValueChange, parseMaxItems]
     );
 
     const RemoveValue = React.useCallback(
@@ -225,7 +224,16 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
             break;
         }
       },
-      [activeIndex, value, dir, inputValue, RemoveValue, selectedValue, isValueSelected, onValueChangeHandler]
+      [
+        activeIndex,
+        value,
+        dir,
+        inputValue,
+        RemoveValue,
+        selectedValue,
+        isValueSelected,
+        onValueChangeHandler,
+      ]
     );
 
     const mousePreventDefault = React.useCallback((e: React.MouseEvent) => {
