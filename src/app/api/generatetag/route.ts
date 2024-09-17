@@ -2,21 +2,22 @@ import keywordExtractor from "keyword-extractor";
 import { NextRequest, NextResponse } from "next/server";
 import winkNLP from "wink-nlp";
 import model from "wink-eng-lite-web-model";
+import nlp from "compromise";
 
 // Initialize Wink NLP model
-const nlp = winkNLP(model);
+const wink = winkNLP(model);
 
-// Step 1: Generate keywords from text using wink-nlp
+// Step 1: Generate keywords from text using Wink NLP
 function generateNLPKeywords(title: string): string[] {
-  const doc = nlp.readDoc(title);
+  const doc = wink.readDoc(title);
   const terms = doc
     .tokens()
     .filter((token) => {
-      const pos = token.out(nlp.its.pos);
+      const pos = token.out(wink.its.pos);
       return pos === "NOUN" || pos === "VERB"; // Filter nouns and verbs
     })
     .out();
-  return terms.slice(0, 30); // Get top 30 terms
+  return terms.map((term) => term.toLowerCase()).slice(0, 30); // Get top 30 terms
 }
 
 // Step 2: Keyword extraction using `keyword-extractor`
@@ -27,17 +28,31 @@ function generateExtractedKeywords(title: string): string[] {
     return_changed_case: true,
     remove_duplicates: true,
   });
-
-  return extractionResult.slice(0, 30); // Get top 30 keywords
+  return extractionResult.map((keyword) => keyword.toLowerCase()).slice(0, 30); // Get top 30 keywords
 }
 
-// Step 3: Combine both approaches and remove duplicates
+// Step 3: Generate key phrases using Compromise
+function generateCompromiseKeywords(title: string): string[] {
+  const doc = nlp(title);
+  return doc
+    .nouns()
+    .out("array")
+    .map((noun: string) => noun.toLowerCase())
+    .slice(0, 30); // Get top 30 nouns
+}
+
+// Step 4: Combine both approaches and remove duplicates
 function generateAccurateTags(title: string): string[] {
   const nlpKeywords = generateNLPKeywords(title);
+
   const extractedKeywords = generateExtractedKeywords(title);
 
-  // Combine both and remove duplicates
-  const combinedKeywords = [...new Set([...nlpKeywords, ...extractedKeywords])];
+  const compromiseKeywords = generateCompromiseKeywords(title);
+
+  // Combine all keywords and remove duplicates
+  const combinedKeywords = [
+    ...new Set([...nlpKeywords, ...extractedKeywords, ...compromiseKeywords]),
+  ];
   return combinedKeywords.slice(0, 30); // Return top 30 combined tags
 }
 
