@@ -10,7 +10,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: METADATA.title,
   description: METADATA.description,
-  keywords: METADATA.description,
+  keywords: METADATA.keywords,
 };
 
 export default function RootLayout({
