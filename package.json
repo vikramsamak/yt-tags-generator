@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "npx playwright install",
+    "prebuild": "npx playwright install && npx playwright install-deps",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
