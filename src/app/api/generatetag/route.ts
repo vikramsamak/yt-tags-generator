@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import winkNLP from "wink-nlp";
 import model from "wink-eng-lite-web-model";
 import nlp from "compromise";
+import axios from "axios";
 
 // Initialize Wink NLP model
 const wink = winkNLP(model);
@@ -41,17 +42,37 @@ function generateCompromiseKeywords(title: string): string[] {
     .slice(0, 30); // Get top 30 nouns
 }
 
-// Step 4: Combine both approaches and remove duplicates
-function generateAccurateTags(title: string): string[] {
+// Step 4: Fetch suggestions from Google Suggest API
+async function fetchGoogleSuggestions(query: string): Promise<string[]> {
+  try {
+    const response = await axios.get(
+      `http://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(
+        query
+      )}`
+    );
+    const suggestions = response.data[1]; // Extract suggestions from the response
+    return suggestions.map((suggestion: string) => suggestion.toLowerCase());
+  } catch (error) {
+    console.error("Failed to fetch suggestions from Google", error);
+    return [];
+  }
+}
+
+// Step 5: Combine all sources and remove duplicates
+async function generateAccurateTags(title: string): Promise<string[]> {
   const nlpKeywords = generateNLPKeywords(title);
-
   const extractedKeywords = generateExtractedKeywords(title);
-
   const compromiseKeywords = generateCompromiseKeywords(title);
+  const googleSuggestions = await fetchGoogleSuggestions(title);
 
   // Combine all keywords and remove duplicates
   const combinedKeywords = [
-    ...new Set([...nlpKeywords, ...extractedKeywords, ...compromiseKeywords]),
+    ...new Set([
+      ...nlpKeywords,
+      ...extractedKeywords,
+      ...compromiseKeywords,
+      ...googleSuggestions,
+    ]),
   ];
   return combinedKeywords.slice(0, 30); // Return top 30 combined tags
 }
@@ -66,7 +87,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 });
     }
 
-    const tags = generateAccurateTags(title);
+    const tags = await generateAccurateTags(title);
 
     return NextResponse.json({ tags });
   } catch (error) {
