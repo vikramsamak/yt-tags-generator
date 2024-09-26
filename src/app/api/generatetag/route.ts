@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import winkNLP from "wink-nlp";
 import model from "wink-eng-lite-web-model";
 import nlp from "compromise";
-import axios from "axios";
+import { scrapeRapidTags } from "@/helpers/scrapper";
 
 // Initialize Wink NLP model
 const wink = winkNLP(model);
@@ -42,28 +42,12 @@ function generateCompromiseKeywords(title: string): string[] {
     .slice(0, 30); // Get top 30 nouns
 }
 
-// Step 4: Fetch suggestions from Google Suggest API
-async function fetchGoogleSuggestions(query: string): Promise<string[]> {
-  try {
-    const response = await axios.get(
-      `http://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(
-        query
-      )}`
-    );
-    const suggestions = response.data[1]; // Extract suggestions from the response
-    return suggestions.map((suggestion: string) => suggestion.toLowerCase());
-  } catch (error) {
-    console.error("Failed to fetch suggestions from Google", error);
-    return [];
-  }
-}
-
 // Step 5: Combine all sources and remove duplicates
-async function generateAccurateTags(title: string): Promise<string[]> {
+async function generateAccurateTags(title: string) {
   const nlpKeywords = generateNLPKeywords(title);
   const extractedKeywords = generateExtractedKeywords(title);
   const compromiseKeywords = generateCompromiseKeywords(title);
-  const googleSuggestions = await fetchGoogleSuggestions(title);
+  const rapidtags = await scrapeRapidTags(title);
 
   // Combine all keywords and remove duplicates
   const combinedKeywords = [
@@ -71,7 +55,7 @@ async function generateAccurateTags(title: string): Promise<string[]> {
       ...nlpKeywords,
       ...extractedKeywords,
       ...compromiseKeywords,
-      ...googleSuggestions,
+      ...rapidtags,
     ]),
   ];
   return combinedKeywords.slice(0, 30); // Return top 30 combined tags
