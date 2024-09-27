@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { Inter } from "next/font/google";
 
 export const runtime = "edge";
 
@@ -8,6 +9,10 @@ export const size = {
   width: 1200,
   height: 630,
 };
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export const contentType = "image/png";
 
@@ -19,6 +24,7 @@ export default async function Image() {
       <div
         style={{
           fontSize: 128,
+          fontFamily: inter.style.fontFamily,
           background: "white",
           width: "100%",
           height: "100%",
