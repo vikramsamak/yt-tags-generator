@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "npx playwright install && npx playwright install-deps",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -24,7 +23,6 @@
     "lucide-react": "^0.441.0",
     "next": "^14.2.13",
     "next-themes": "^0.3.0",
-    "playwright": "^1.47.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",

@@ -1,9 +1,8 @@
-import keywordExtractor from "keyword-extractor";
 import { NextRequest, NextResponse } from "next/server";
+import keywordExtractor from "keyword-extractor";
 import winkNLP from "wink-nlp";
 import model from "wink-eng-lite-web-model";
 import nlp from "compromise";
-import { scrapeRapidTags } from "@/helpers/scrapper";
 
 // Initialize Wink NLP model
 const wink = winkNLP(model);
@@ -47,16 +46,10 @@ async function generateAccurateTags(title: string) {
   const nlpKeywords = generateNLPKeywords(title);
   const extractedKeywords = generateExtractedKeywords(title);
   const compromiseKeywords = generateCompromiseKeywords(title);
-  const rapidtags = await scrapeRapidTags(title);
 
   // Combine all keywords and remove duplicates
   const combinedKeywords = [
-    ...new Set([
-      ...nlpKeywords,
-      ...extractedKeywords,
-      ...compromiseKeywords,
-      ...rapidtags,
-    ]),
+    ...new Set([...nlpKeywords, ...extractedKeywords, ...compromiseKeywords]),
   ];
   return combinedKeywords.slice(0, 30); // Return top 30 combined tags
 }
