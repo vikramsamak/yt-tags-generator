@@ -22,4 +22,6 @@ export const METADATA = {
     "boost YouTube SEO",
     "YouTube marketing tools",
   ],
+  creator: "Vikram Samak",
+  authors: [{ name: "Vikram Samak", url: "https://vikramsamak.com" }],
 };

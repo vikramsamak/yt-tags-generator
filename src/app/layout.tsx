@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   title: METADATA.title,
   description: METADATA.description,
   keywords: METADATA.keywords,
+  creator: METADATA.creator,
+  authors: METADATA.authors,
 };
 
 export default function RootLayout({
