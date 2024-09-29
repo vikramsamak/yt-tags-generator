@@ -5,7 +5,7 @@ export const APP_DETAILS = {
 export const METADATA = {
   title: "RapidTags - Best YouTube Tags Generator for SEO Optimization",
   description:
-    "RapidTags is a powerful YouTube tags generator designed to help creators boost their video SEO and reach a larger audience. Generate relevant and trending tags instantly to optimize your YouTube content for maximum visibility.",
+    "RapidTags is a YouTube tags generator that helps boost video SEO by instantly generating relevant, trending tags to optimize your content for better visibility and reach.",
   keywords: [
     "RapidTags",
     "YouTube tags generator",
