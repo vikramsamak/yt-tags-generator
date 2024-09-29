@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/contexts/ReactQueryProvider";
-import { METADATA } from "@/constants/Constants";
+import { CANNONICAL_URL, METADATA } from "@/constants/Constants";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: METADATA.title,
@@ -22,6 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="canonical" href={CANNONICAL_URL} />
+      </Head>
       <body className="flex flex-col w-screen min-h-screen">
         <ThemeProvider
           attribute="class"

@@ -25,3 +25,4 @@ export const METADATA = {
   creator: "Vikram Samak",
   authors: [{ name: "Vikram Samak", url: "https://vikramsamak.com" }],
 };
+export const CANNONICAL_URL = "https://rapidtags.co.in/";
