@@ -1,5 +1,7 @@
 export const APP_DETAILS = {
   heading: "YOUTUBE TAG GENERATOR",
+  subHeading:
+    " Instantly generate powerful, SEO-optimized YouTube tags to boost your visibility.",
 };
 
 export const METADATA = {
