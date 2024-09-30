@@ -1,10 +1,11 @@
 import { ImageResponse } from "next/og";
 import { Inter } from "next/font/google";
+import { APP_URL } from "@/constants/Constants";
 
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Rapidtags.co.in";
+export const alt = {APP_URL};
 export const size = {
   width: 1200,
   height: 630,
@@ -20,7 +21,6 @@ export const contentType = "image/png";
 export default async function Image() {
   return new ImageResponse(
     (
-      // ImageResponse JSX element
       <div
         style={{
           fontSize: 128,
@@ -33,7 +33,7 @@ export default async function Image() {
           justifyContent: "center",
         }}
       >
-        Rapidtags.co.in
+        {APP_URL}
       </div>
     ),
     {
