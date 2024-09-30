@@ -4,7 +4,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 interface HeadingProps {
   heading: string;
-  subHeading: string;
+  subHeading?: string;
 }
 
 function Headings({ heading, subHeading }: HeadingProps) {
@@ -18,14 +18,16 @@ function Headings({ heading, subHeading }: HeadingProps) {
           delaySpeed={1000}
         />
       </h1>
-      <h2 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-thin mt-4 text-center">
-        <Typewriter
-          words={[subHeading]}
-          loop={1}
-          typeSpeed={15}
-          delaySpeed={100}
-        />
-      </h2>
+      {subHeading && (
+        <h2 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-thin mt-4 text-center">
+          <Typewriter
+            words={[subHeading]}
+            loop={1}
+            typeSpeed={15}
+            delaySpeed={100}
+          />
+        </h2>
+      )}
     </div>
   );
 }
