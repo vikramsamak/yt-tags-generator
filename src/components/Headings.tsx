@@ -2,17 +2,17 @@
 import React from "react";
 import { Typewriter } from "react-simple-typewriter";
 
-interface AppNameProps {
-  appName: string;
+interface HeadingProps {
+  heading: string;
   subHeading: string;
 }
 
-function AppName({ appName, subHeading }: AppNameProps) {
+function Headings({ heading, subHeading }: HeadingProps) {
   return (
     <div className="flex flex-col w-full items-center justify-center gap-2">
       <h1 className="font-extrabold text-base sm:text-2xl md:text-4xl lg:text-6xl tracking-widest">
         <Typewriter
-          words={[appName]}
+          words={[heading]}
           loop={1}
           typeSpeed={70}
           delaySpeed={1000}
@@ -30,4 +30,4 @@ function AppName({ appName, subHeading }: AppNameProps) {
   );
 }
 
-export default AppName;
+export default Headings;
