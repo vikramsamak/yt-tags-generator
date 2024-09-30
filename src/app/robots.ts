@@ -1,3 +1,4 @@
+import { APP_URL } from "@/constants/Constants";
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://rapidtags.co.in/sitemap.xml",
+    sitemap: `${APP_URL}/sitemap.xml`,
   };
 }

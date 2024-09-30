@@ -1,9 +1,10 @@
+import { APP_URL } from "@/constants/Constants";
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://rapidtags.co.in",
+      url: APP_URL,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,

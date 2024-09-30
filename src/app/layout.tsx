@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/contexts/ReactQueryProvider";
-import { CANNONICAL_URL, METADATA } from "@/constants/Constants";
+import { APP_URL, METADATA } from "@/constants/Constants";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        <link rel="canonical" href={CANNONICAL_URL} />
+        <link rel="canonical" href={APP_URL} />
       </Head>
       <body className="flex flex-col w-screen min-h-screen">
         <ThemeProvider
