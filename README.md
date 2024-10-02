@@ -1,6 +1,6 @@
 # YouTube Tag Generator
 
-This project is a YouTube tag generator built with Next.js. It utilizes NLP and keyword extraction techniques to provide relevant and effective tags for your YouTube videos.
+This project is a YouTube tag generator built with Next.js.
 
 ## Installation
 
