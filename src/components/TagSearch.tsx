@@ -12,6 +12,8 @@ import { Copy } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { ApiResponseHandler } from "@/helpers/ApiResponseHandler";
 import { Skeleton } from "./ui/skeleton";
+import { isMobile } from "react-device-detect";
+import { Spinner } from "./ui/spinner";
 
 const formSchema = z.object({
   title: z.string().min(4, {
@@ -88,7 +90,11 @@ function TagSearch() {
         </form>
       </Form>
       {isPending ? (
-        <Skeleton className="h-48 md:w-1/2" />
+        isMobile ? (
+          <Spinner />
+        ) : (
+          <Skeleton className="h-48 md:w-1/2" />
+        )
       ) : (
         tags &&
         tags.length > 0 && (
