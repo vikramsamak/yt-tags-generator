@@ -5,6 +5,7 @@ import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 import { APP_URL, METADATA } from "@/constants/Constants";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -20,6 +21,8 @@ export const metadata: Metadata = {
   },
   applicationName: "RapidTags",
 };
+
+const GA_TAG = process.env.GA_TAG as string;
 
 export default function RootLayout({
   children,
@@ -41,7 +44,8 @@ export default function RootLayout({
           <Toaster position="top-center" />
         </ThemeProvider>
         <Analytics />
-        <GoogleAnalytics gaId="G-0JW2XN8ZC5" />
+        <SpeedInsights />
+        <GoogleAnalytics gaId={GA_TAG} />
       </body>
     </html>
   );
