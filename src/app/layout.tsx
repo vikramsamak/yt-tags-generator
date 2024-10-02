@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 import { APP_URL, METADATA } from "@/constants/Constants";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -41,6 +42,7 @@ export default function RootLayout({
           <Toaster position="top-center" />
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId="G-0JW2XN8ZC5" />
     </html>
   );
 }
