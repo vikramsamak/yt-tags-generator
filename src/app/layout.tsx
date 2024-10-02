@@ -6,7 +6,6 @@ import { APP_URL, METADATA } from "@/constants/Constants";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
-import Head from "next/head";
 
 export const metadata: Metadata = {
   title: METADATA.title,
@@ -14,6 +13,10 @@ export const metadata: Metadata = {
   keywords: METADATA.keywords,
   creator: METADATA.creator,
   authors: METADATA.authors,
+  alternates: {
+    canonical: APP_URL,
+  },
+  applicationName: "RapidTags",
 };
 
 export default function RootLayout({
@@ -23,9 +26,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="canonical" href={APP_URL} />
-      </Head>
       <body className="flex flex-col w-screen min-h-screen">
         <ThemeProvider
           attribute="class"
