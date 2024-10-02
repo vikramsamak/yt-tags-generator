@@ -4,7 +4,7 @@ import { APP_URL } from "@/constants/Constants";
 
 export const runtime = "edge";
 
-export const alt = { APP_URL };
+export const alt = APP_URL.replace("https://", "");
 export const size = {
   width: 1200,
   height: 630,
