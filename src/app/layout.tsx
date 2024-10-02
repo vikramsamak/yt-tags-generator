@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 import { APP_URL, METADATA } from "@/constants/Constants";
+import { GoogleTagManager } from "@next/third-parties/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -26,6 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="G-0JW2XN8ZC5" />
       <body className="flex flex-col w-screen min-h-screen">
         <ThemeProvider
           attribute="class"
