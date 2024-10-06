@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
-import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 import { APP_URL, METADATA } from "@/constants/Constants";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -38,9 +39,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-          <Footer />
+          <ScrollArea className="h-[100vh]">
+            <Header />
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+            <Footer />
+          </ScrollArea>
           <Toaster position="top-center" />
         </ThemeProvider>
         <Analytics />
