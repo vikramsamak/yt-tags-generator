@@ -5,24 +5,21 @@ export const APP_DETAILS = {
 };
 
 export const METADATA = {
-  title: "RapidTags - Best YouTube Tags Generator for SEO Optimization",
+  title:
+    "RapidTags: Best Hashtag Generator & SEO Tools for YouTube, TikTok & Instagram",
   description:
-    "RapidTags is a YouTube tags generator that helps boost video SEO by instantly generating relevant, trending tags to optimize your content for better visibility and reach.",
+    "Boost your social media reach with RapidTags, the ultimate hashtag generator for YouTube, TikTok, and Instagram. Unlock SEO tools, optimize keywords, and discover trending hashtags for better views and engagement on your content.",
   keywords: [
-    "RapidTags",
-    "YouTube tags generator",
-    "best YouTube tags",
-    "YouTube SEO tool",
-    "tags for YouTube videos",
-    "video optimization",
-    "increase YouTube views",
-    "YouTube keyword research",
-    "SEO for YouTube",
-    "generate YouTube tags",
-    "trending YouTube tags",
-    "YouTube tags 2023",
-    "boost YouTube SEO",
-    "YouTube marketing tools",
+    "hashtag generator",
+    "keyword planner",
+    "key words",
+    "seo tools",
+    "keyword research",
+    "seo optimization",
+    "trending tiktok hashtags",
+    "rapidtags",
+    "youtube stats",
+    "seo optimization tools",
   ],
   creator: "Vikram Samak",
   authors: [{ name: "Vikram Samak", url: "https://vikramsamak.com" }],
