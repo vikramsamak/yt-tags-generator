@@ -7,7 +7,13 @@ function Content() {
       {rapidTagsContent.map((item: Content, index) => (
         <div key={index}>
           <h2 className="text-2xl font-bold">{item.title}</h2>
-          <p className="mt-2 text-justify text-pretty">{item.description}</p>
+          <div className="flex flex-col gap-2">
+            {item.description.map((desc, index) => (
+              <p className="mt-2 text-justify text-pretty" key={index}>
+                {desc.text}
+              </p>
+            ))}
+          </div>
         </div>
       ))}
     </section>

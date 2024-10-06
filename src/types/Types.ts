@@ -7,7 +7,7 @@ export type ApiResponse = {
 
 export type Content = {
   title: string;
-  description: string;
+  description: { text: string }[];
 };
 
 export type ContentData = Content[];
